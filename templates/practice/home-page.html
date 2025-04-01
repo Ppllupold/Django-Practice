@@ -1,0 +1,56 @@
+{% extends "practice/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>TODO list</h2>
+    <a href="{% url 'practice:task-create' %}" class="btn btn-primary">Add task</a>
+  </div>
+
+  {% for task in tasks %}
+    <div class="card mb-3">
+      <div class="card-body">
+      
+        <div class="d-flex justify-content-between align-items-center">
+          <h5 class="card-title mb-0">
+            {{ task.content }}
+            {% if task.is_done %}
+              <span class="text-success font-weight-bold">Done</span>
+            {% else %}
+              <span class="text-danger font-weight-bold">Not done</span>
+            {% endif %}
+          </h5>
+
+          <form action="{% url 'practice:change-completion-status' task.id %}" method="post" class="d-inline">
+            {% csrf_token %}
+            {% if task.is_done %}
+              <button type="submit" class="btn btn-sm btn-secondary">Undo</button>
+            {% else %}
+              <button type="submit" class="btn btn-sm btn-success">Complete</button>
+            {% endif %}
+          </form>
+        </div>
+
+        <!-- Дата -->
+        <p class="card-text mt-2">
+          Created at: {{ task.created_at|date:"M d, Y H:i" }} <br>
+          Deadline: {{ task.deadline|date:"M d, Y H:i" }} <br>
+        </p>
+
+        <p class="card-text">
+          Tags:
+          {% for tag in task.tags.all %}
+            <span class="badge badge-info">{{ tag.name }}</span>
+          {% empty %}
+            <em>No tags</em>
+          {% endfor %}
+          <a href="{% url 'practice:task-update' task.id %}" class="btn btn-sm btn-outline-secondary mr-2">Update</a>
+          <a href="{% url 'practice:task-delete' task.id %}" class="btn btn-sm btn-outline-danger">Delete</a>
+        </p>
+
+      </div>
+    </div>
+  {% empty %}
+    <p>No tasks yet.</p>
+  {% endfor %}
+{% endblock %}

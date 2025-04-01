@@ -1,0 +1,10 @@
+{% extends "practice/base.html" %}
+
+{% block content %}
+<h2>Delete tag "{{ tag.name }}"?</h2>
+<form method="post">
+  {% csrf_token %}
+  <button type="submit" class="btn btn-danger">Confirm</button>
+  <a href="{% url 'practice:tag-list' %}" class="btn btn-secondary">Cancel</a>
+</form>
+{% endblock %}
