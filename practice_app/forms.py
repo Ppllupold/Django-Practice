@@ -8,5 +8,5 @@ class TaskForm(forms.ModelForm):
         fields = "__all__"
         widgets = {
             "deadline": forms.DateTimeInput(attrs={"type": "datetime-local"}),
-            "tags": forms.SelectMultiple()
+            "tags": forms.SelectMultiple(),
         }
