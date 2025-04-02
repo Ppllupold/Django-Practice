@@ -1,0 +1,33 @@
+{% extends "practice/base.html" %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h2>Tags</h2>
+  <a href="{% url 'practice:tag-create' %}" class="btn btn-primary">Add</a>
+</div>
+
+<div style="width: 50%;">
+  <table class="table table-bordered table-sm">
+    <thead class="thead-light">
+      <tr>
+        <th style="width: 5%;">Name</th>
+        <th class="text-center" style="width: 5%;">Update</th>
+        <th class="text-center" style="width: 5%;">Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for tag in tags %}
+        <tr>
+          <td class="align-middle">{{ tag.name }}</td>
+          <td class="text-center align-middle">
+            <a href="{% url 'practice:tag-update' tag.id %}" class="btn btn-sm btn-secondary">Update</a>
+          </td>
+          <td class="text-center align-middle">
+            <a href="{% url 'practice:tag-delete' tag.id %}" class="btn btn-sm btn-secondary">Delete</a>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

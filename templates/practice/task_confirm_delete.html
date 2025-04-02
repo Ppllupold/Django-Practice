@@ -1,0 +1,11 @@
+{% extends "practice/base.html" %}
+
+{% block content %}
+  <h1>Delete Task?</h1>
+  <form action="" method="post">
+    {% csrf_token %}
+    <input type="submit" value="Yes" class="btn btn-danger">
+   <a href="{% url 'practice:index' %}" class="btn btn-primary mr-2">Cancel</a>
+  </form>
+
+{% endblock %}
